@@ -47,6 +47,11 @@ config :oauth2_example, GitHub,
   client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
   redirect_uri: System.get_env("GITHUB_REDIRECT_URI")
 
+config :oauth2_example, ContaAzul,
+  client_id: System.get_env("CONTAAZUL_CLIENT_ID"),
+  client_secret: System.get_env("CONTAAZUL_CLIENT_SECRET"),
+  redirect_uri: System.get_env("CONTAAZUL_REDIRECT_URI")
+
 config :oauth2_example, Google,
   client_id: System.get_env("GOOGLE_CLIENT_ID"),
   client_secret: System.get_env("GOOGLE_CLIENT_SECRET"),

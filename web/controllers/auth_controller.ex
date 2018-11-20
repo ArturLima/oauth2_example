@@ -1,5 +1,6 @@
 defmodule OAuth2Example.AuthController do
   use OAuth2Example.Web, :controller
+  require Logger
 
   @doc """
   This action is reached via `/auth/:provider` and redirects to the OAuth2 provider
@@ -26,6 +27,8 @@ defmodule OAuth2Example.AuthController do
     # Exchange an auth code for an access token
     client = get_token!(provider, code)
 
+    Logger.info "Client info is #{inspect(client)}"
+
     # Request the user's data with the access token
     user = get_user!(provider, client)
 
@@ -42,16 +45,21 @@ defmodule OAuth2Example.AuthController do
     |> redirect(to: "/")
   end
 
+  defp authorize_url!("contaazul"),   do: ContaAzul.authorize_url!
   defp authorize_url!("github"),   do: GitHub.authorize_url!
   defp authorize_url!("google"),   do: Google.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
   defp authorize_url!("facebook"), do: Facebook.authorize_url!(scope: "user_photos")
   defp authorize_url!(_), do: raise "No matching provider available"
 
+  defp get_token!("contaazul", code),   do: ContaAzul.get_token!(code: code)
   defp get_token!("github", code),   do: GitHub.get_token!(code: code)
   defp get_token!("google", code),   do: Google.get_token!(code: code)
   defp get_token!("facebook", code), do: Facebook.get_token!(code: code)
   defp get_token!(_, _), do: raise "No matching provider available"
 
+  defp get_user!("contaazul", client) do
+    %{name: "Teste", avatar: "https://avatars2.githubusercontent.com/u/127527?v=4"}
+  end
   defp get_user!("github", client) do
     %{body: user} = OAuth2.Client.get!(client, "/user")
     %{name: user["name"], avatar: user["avatar_url"]}

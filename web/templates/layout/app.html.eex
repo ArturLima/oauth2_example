@@ -61,6 +61,11 @@
           Sign in with GitHub
         </a>
 
+        <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index, "contaazul" %>">
+          <i class="fa fa-home"></i>
+          Sign in with ContaAzul
+        </a>
+
         <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index, "facebook" %>">
           <i class="fa fa-facebook"></i>
           Sign in with Facebook
